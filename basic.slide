@@ -1,0 +1,142 @@
+The Go Programming Language
+Basic
+Tags: go, golang
+
+Anuchit Prasertsang
+Developer
+anuchit.prasertsang@gmail.com
+https://github.com/AnuchitO
+@twitter_AnuchitO
+
+* Editor
+
+* Packages
+- Every Go program is made up of packages.
+- Programs start running in package main.
+.play basic/packages.go
+- By convention, the package name is the same as the last element of the import path. For instance, the *"math/rand"* package comprises files that begin with the statement package *rand*.
+
+* Imports
+- This code groups the imports into a parenthesized, "factored" import statement.
+.code basic/imports.go
+- You can also write multiple import statements, like:
+
+  import "fmt"
+  import "math"
+
+But it is good style to use the factored import statement.
+
+* Exported names
+- In Go, a name is exported if it begins with a *capital* *letter*.
+
+  Pizza
+  Pi
+  Println
+
+: pizza and pi do not start with a capital letter, so they are not exported.
+
+- When importing a package *math.Pi*
+- Any "unexported" names are not accessible from outside the package.
+: workshop => refactor function to package
+
+* Functions
+- A function can take zero or more arguments.
+
+- In this example, *add* takes two parameters of type *int*.
+
+- Notice that the _type_ comes _after_ the _variable_ _name_.
+
+.code basic/functions.go
+
+  func add(x, y int) int
+
+: (For more about why types look the way they do, see the article on Go's declaration syntax.)
+
+* Multiple results
+- a function can return any number of results
+- the *swap* function returns two string.
+
+.play basic/multiple_results.go /START/,/END/
+
+* Named return values
+- Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+
+.code basic/named_results.go /START/,/END/
+
+
+- A return statement without arguments returns the named return values. This is known as a *"naked"* return.
+
+- Naked return statements should be used only in short functions.
+: They can harm readability in longer functions.
+: These names should be used to document the meaning of the return values.
+
+* Variables
+- The *var* statement declares a list of variables; as in function argument lists, the type is last.
+
+- A *var* statement can be at package or function level. We see both in this example.
+
+.play basic/variables.go
+
+* Variables with initializers
+- If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+.play basic/variables_with_initializers.go
+
+* Short variable declarations
+- Inside a function, the *:=* short assignment statement can be used in place of a *var* declaration with implicit type.
+.play basic/sort_variable_initialinze.go
+- Outside a function, every statement begins with a keyword (_var_, _func_, and so on) and so the _:=_ construct is not available.
+
+* Basic types
+Go's basic types are
+
+  bool
+
+  string
+
+  int  int8  int16  int32  int64
+  uint uint8 uint16 uint32 uint64 uintptr
+
+  byte // alias for uint8
+
+  rune // alias for int32
+      // represents a Unicode code point
+
+  float32 float64
+
+  complex64 complex128
+
+The _int_, _uint_, and _uintptr_ types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.
+When you need an integer value you should use _int_ unless you have a specific reason to use a sized or unsigned integer type.
+
+* Zero values
+Variables declared without an explicit initial value are given their zero value.
+
+The zero value is:
+*0* for numeric types,
+*false* for the boolean type
+*""* (the empty string) for strings.
+
+.play basic/zero.go
+
+%q	a double-quoted string safely escaped with Go syntax
+
+* Type conversions
+The expression *T(v)* converts the value *v* to the type *T*.
+
+Some numeric conversions:
+
+  var i int = 42
+  var f float64 = float64(i)
+  var u uint = uint(f)
+
+Or, put more simply:
+
+  i := 42
+  f := float64(i)
+  u := uint(f)
+
+Unlike in C, in Go assignment between items of different type requires an explicit conversion.
+
+* Type conversions - Example
+Try removing the _float64_ or _uint_ conversions in the example and see what happens.
+.play basic/type_conversions.go
