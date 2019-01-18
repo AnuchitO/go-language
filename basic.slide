@@ -10,6 +10,8 @@ https://github.com/AnuchitO
 
 * Editor
 
+* Basic
+
 * Packages
 - Every Go program is made up of packages.
 - Programs start running in package main.
@@ -137,6 +139,70 @@ Or, put more simply:
 
 Unlike in C, in Go assignment between items of different type requires an explicit conversion.
 
-* Type conversions - Example
+* Type conversions - example
 Try removing the _float64_ or _uint_ conversions in the example and see what happens.
-.play basic/type_conversions.go
+.code basic/type_conversions.go
+
+* Type inference
+When declaring a variable without specifying an explicit type
+(either by using the *:=* syntax or *var* *=* expression syntax),
+the variable's type is inferred from the value on the right hand side.
+
+When the right hand side of the declaration is typed, the new variable is of that same type:
+
+  var i int
+  j := i // j is an int
+
+But when the right hand side contains an untyped numeric constant,
+the new variable may be an _int_, _float64_, or _complex128_ depending on the precision of the constant:
+
+  i := 42           // int
+  f := 3.142        // float64
+  g := 0.867 + 0.5i // complex128
+
+* Type inference - example
+Try changing the initial value of _v_ in the example code and observe how its type is affected.
+.code basic/type_inference.go
+
+* Constants
+Constants are declared like variables, but with the const keyword.
+Constants can be _character_, _string_, _boolean_, or _numeric_ values.
+Constants *cannot* be declared using the := syntax.
+.play basic/constants.go
+
+: * Numeric Constants
+: Numeric constants are high-precision values.
+: An untyped constant takes the type needed by its context.
+: Try printing needInt(Big) too.
+: (An int can store at maximum a 64-bit integer, and sometimes less.)
+: .play basic/numeric_constants.go /START/,/END/
+
+* Flow Control
+
+* For
+Go has only one looping construct, the *for* loop.
+.play flowcontrol/for.go /START/,/END/
+
+The basic *for* loop has three components separated by semicolons:
+
+  the init statement: executed before the first iteration
+  the condition expression: evaluated before every iteration
+  the post statement: executed at the end of every iteration
+
+The init statement will often be a short variable declaration,
+and the variables declared there are visible only in the scope of the *for* statement.
+The loop will stop iterating once the boolean condition evaluates to *false*.
+
+Note: there are no parentheses surrounding
+
+* For continued
+The init and post statements are optional.
+.play flowcontrol/for_continued.go /START/,/END/
+
+* For is Go's "while"
+At that point you can drop the semicolons: C's while is spelled for in Go.
+.play flowcontrol/for_is_gos_while.go /START/,/END/
+
+* Forever
+If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
+.play flowcontrol/forever.go /START/,/END/
