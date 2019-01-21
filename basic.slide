@@ -206,3 +206,61 @@ At that point you can drop the semicolons: C's while is spelled for in Go.
 * Forever
 If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
 .play flowcontrol/forever.go /START/,/END/
+
+* If
+Go's *if* statements are like its _for_ loops;the expression need not be surrounded
+by parentheses ( ) but the braces *{* *}* are *required*.
+.play flowcontrol/if.go /START/,/END/
+
+* If with a short statement
+Like _for_, the *if* statement can start with a short statement to execute before the condition.
+Variables declared by the statement are only in scope until the end of the _if_.
+
+(Try using _v_ in the last _return_ statement.)
+.code flowcontrol/if_with_a_short_statement.go /START/,/END/
+
+* If and else
+Variables declared inside an *if* short statement are also available inside any of the *else* blocks.
+.code flowcontrol/if_and_else.go /START/,/END/
+
+* Exercise: Loops and Functions
+
+* Switch
+A *switch* statement is a shorter way to write a sequence of _if_ _-_ _else_ statements.
+It runs the first case whose value is equal to the condition expression.
+.play flowcontrol/switch.go /START/,/END/
+
+Go *only* *runs* *the* *selected* *case*, not all the cases that follow.
+the *break* statement is provided automatically in Go.
+
+: Go's switch is like the one in C, C++, Java, JavaScript, and PHP,
+: Another important difference is that Go's switch cases need not be constants, and the values involved need not be integers.
+
+* Switch evaluation order
+Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+
+(For example,
+
+  switch i {
+  case 0:
+  case f():
+  }
+
+does not call _f_ *if* *i==0* .)
+.play flowcontrol/switch_evaluation_order.go /START/,/END/
+
+* Switch with no condition
+Switch without a condition is the same as *switch* *true*.
+.play flowcontrol/switch_with_no_condition.go
+This construct can be a clean way to write long if-then-else chains.
+
+* Defer
+A defer statement defers the execution of a function until the surrounding function returns.
+.play flowcontrol/defer.go
+The deferred call's arguments are evaluated immediately,
+but the function call is not executed until the surrounding function returns.
+
+* Stacking defers
+Deferred function calls are pushed onto a stack. When a function returns, its deferred calls are executed in last-in-first-out order.
+.play flowcontrol/defer_stacking.go
+: To learn more about defer statements read this https://blog.golang.org/defer-panic-and-recover.
