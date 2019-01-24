@@ -1,0 +1,37 @@
+* rune
+
+raw string คือไม่สนใจ escape sequence
+var msg string = `Hello
+
+World
+`
+
+var msg string = "Aello World"
+fmt.Println(msg[0])
+
+var msg string = "สวัสดี"
+fmt.Println(msg[0])
+
+
+  var msg string = "สวัสดี"
+        for i := 0; i < len(msg); i++ {
+                fmt.Println(msg[i])
+        }
+
+        for _, c := range msg {
+        fmt.Printf("%c", c)
+}
+
+msgLen := utf8.RuneCountInString(msg)
+fmt.Println(msgLen)
+
+
+func main() {
+    s := strings.Split("127.0.0.1:5432", ":")
+    ip, port := s[0], s[1]
+    fmt.Println(ip, port)
+}
+
+d := 'ก'
+
+	fmt.Printf("%T %c\n", d, d)

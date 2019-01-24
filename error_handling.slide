@@ -1,0 +1,20 @@
+* Error handling
+
+Multiple function return values inform the design for handling errors.
+
+Go has no `try-catch` control structures for exceptions.
+Return `error` instead: built-in interface type that can "stringify" itself:
+
+	type error interface { Error() string }
+
+Clear and simple.
+
+Philosophy:
+
+Forces you think about errors—and deal with them—when they arise.
+Errors are _normal_. Errors are _not_exceptional_.
+Use the existing language to compute based on them.
+Don't need a sublanguage that treats them as exceptional.
+
+Result is better code (if more verbose).
+(OK, not all errors are normal. But most are.)

@@ -1,0 +1,22 @@
+The Go Programming Language
+Methods and Interfaces
+Tags: go, golang
+
+Anuchit Prasertsang
+Developer
+anuchit.prasertsang@gmail.com
+https://github.com/AnuchitO
+@twitter_AnuchitO
+
+* Methods
+Go does not have classes. However, you can define methods on types.
+A method is a function with a special _receiver_ argument.
+The receiver appears in its own argument list between the *func* keyword and the method name.
+In this example, the *Abs* method has a receiver of type *Vertex* named *v*.
+.play methods/methods.go /START/,/END/
+You can only declare a method with a receiver whose type is defined in the same package as the method.
+
+
+* Methods are functions
+Remember: a method is just a function with a receiver argument.
+.play methods/methods_funcs.go /START/,/END/

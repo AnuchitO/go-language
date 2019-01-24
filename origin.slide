@@ -1,0 +1,122 @@
+Go programming language
+
+* Creator
+.image creators.png
+
+“Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.” - golang.org
+
+* Go
+    Subject: Re: prog lang discussion
+    From: Rob 'Commander' Pike
+    Date: Tue, Sep 25, 2007 at 3:12 PM
+    To: Robert Griesemer, Ken Thompson
+
+    i had a couple of thoughts on the drive home.
+
+    1. name
+
+    'go'. you can invent reasons for this name but it has nice properties.
+    it's short, easy to type. tools: goc, gol, goa. if there's an interactive
+    debugger/interpreter it could just be called 'go'. the suffix is .go
+    ...
+
+* GO
+Go is efficient, scalable, and productive.
+
+- Some programmers find it fun to work in.
+- Others find it unimaginative, even boring.
+
+* Big hardware
+.image datacenter.jpg
+
+*  Go at Google
+- Solve Google's problems, and Google has big problems.
+- The hardware is big and the software is big. gazillions of lines of code
+- Thousands of engineers work on the code.
+- multicore processors, networked systems, massive computation clusters, and the web programming model
+- C++ (mostly) for servers, plus lots of Java and Python.
+- In short, development at Google is big, can be slow, and is often clumsy.
+
+* Pain
+
+What makes large-scale development hard with C++ or Java (at least):
+
+- slow builds
+- uncontrolled dependencies
+- each programmer using a different subset of the language
+- poor program understanding (documentation, etc.)
+- duplication of effort
+- cost of updates
+- version skew
+- difficulty of automation (auto rewriters etc.): tooling
+- cross-language builds
+
+Language _features_ don't usually address these.
+A larger view of software engineering is required.
+
+* The reason for Go
+
+Goals:
+
+- eliminate slowness
+- eliminate clumsiness
+- improve effectiveness
+- maintain (even improve) scale
+
+Go was designed by and for people who write—and read and debug and maintain—large software systems.
+
+Go's purpose is _not_ research into programming language design.
+
+Go's purpose is to make its designers' programming lives better.
+
+* Guiding principles
+- Simplicity, Safety and Readability are paramount
+- Striving for orthogonality in design
+- It's about `expressing algorithms`, not the type system.
+- one feature at the time
+
+  As some critics would say: There's nothing new in Go!
+  They are missing the point:
+  The task of the programming language designer "is consolidation not innovation ".
+  (Hoare, 1973).
+
+
+* The target
+- Go aims to combine the safety and performance
+- statically typed compiled language
+- expressiveness and convenience of a dynamically typed interpreted language.
+- It also aims to be suitable for modern systems - large scale - programming.
+
+* Language Design in the Service of Software Engineering
+Go is a compiled, concurrent, garbage-collected, statically typed language developed at Google.
+
+- Readability - focus on sustaining engineering
+- built-in concurrency and garbage collection
+- Go's design considerations include rigorous dependency management
+- the adaptability of software architecture as systems grow
+
+* Features in Go
+- Go is different.
+- Go does not try to be like the other languages.
+- Go does not compete on features.
+- As of Go 1, the language is fixed.
+
+- Many newcomers to Go ask for features from languages they know.
+- Adding features to Go would not make it better, just bigger.
+- That would make Go less interesting by being less different.
+
+* But you need features!
+- Of course, there must be some features.
+- But which ones? The right ones!
+- Design by consensus.
+
+* Go was "the emerging language of cloud infrastructure".
+
+* Go documentation is good simple
+
+
+* -Go module-
+
+* -Go Idioms-
+
+* -Concurrency-

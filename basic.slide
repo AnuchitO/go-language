@@ -8,9 +8,90 @@ anuchit.prasertsang@gmail.com
 https://github.com/AnuchitO
 @twitter_AnuchitO
 
-* Editor
-
 * Basic
+
+* Installing
+.link https://golang.org/dl/ Download https://golang.org/dl
+
+*mac/linux*
+Download file.tar.gz
+
+    ~/go1.x.x
+
+*windows*
+Download file.zip
+
+    C:\go1.x.x
+
+
+* GOROOT
+
+*mac/linux*
+
+    export GOROOT=~/go1.x.x
+    export GOBIN=$GOPATH/bin
+    export PATH=$GOBIN:$GOROOT/bin:$PATH
+
+*windows*
+
+    set GOROOT=C:\go1.x.x
+    set GOBIN=%GOPATH%\bin
+    set PATH=%GOBIN%;%GOROOT%\bin;%PATH%
+
+
+* GOROOT vs GOPATH
+
+*GOROOT* is a root of your Go installation.
+If you are a Java user, $GOROOT is similar in effect to $JAVA_HOME
+
+*GOPATH* is a environment variable specifies the location of your workspace.
+It defaults to a directory named go inside your home directory
+
+- Unix
+  $HOME/go
+- Windows
+  %USERPROFILE%\go (usually C:\Users\YourName\go)
+
+* Project structure
+
+    bin/
+        hello                          # command executable
+        outyet                         # command executable
+    pkg/
+        linux_amd64/
+            github.com/golang/example/
+                stringutil.a           # package object
+    src/
+        github.com/golang/example/
+            .git/                      # Git repository metadata
+        hello/
+            hello.go               # command source
+        outyet/
+            main.go                # command source
+            main_test.go           # test source
+        stringutil/
+            reverse.go             # package source
+            reverse_test.go        # test source
+        golang.org/x/image/
+            .git/                      # Git repository metadata
+        bmp/
+            reader.go              # package source
+            writer.go              # package source
+        ... (many more repositories and packages omitted) ...
+
+* editor
+.image editor.png
+
+* os
+.image dev_on_os.png
+
+* Keywords
+
+    break        default      func         interface    select
+    case         defer        go           map          struct
+    chan         else         goto         package      switch
+    const        fallthrough  if           range        type
+    continue     for          import       return       var
 
 * Packages
 - Every Go program is made up of packages.
@@ -40,50 +121,6 @@ But it is good style to use the factored import statement.
 - When importing a package *math.Pi*
 - Any "unexported" names are not accessible from outside the package.
 : workshop => refactor function to package
-
-* Functions
-- A function can take zero or more arguments.
-
-- In this example, *add* takes two parameters of type *int*.
-
-- Notice that the _type_ comes _after_ the _variable_ _name_.
-
-.code basic/functions.go
-
-  func add(x, y int) int
-
-: (For more about why types look the way they do, see the article on Go's declaration syntax.)
-
-* Multiple results
-- a function can return any number of results
-- the *swap* function returns two string.
-
-.play basic/multiple_results.go /START/,/END/
-
-* Named return values
-- Go's return values may be named. If so, they are treated as variables defined at the top of the function.
-
-.code basic/named_results.go /START/,/END/
-
-
-- A return statement without arguments returns the named return values. This is known as a *"naked"* return.
-
-- Naked return statements should be used only in short functions.
-: They can harm readability in longer functions.
-: These names should be used to document the meaning of the return values.
-
-* Function values
-*Functions* *are* *values* too. They can be *passed* *around* just like other values.
-Function values may be used as function arguments and return values.
-.code moretypes/functions_values.go
-
-* Function closures
-.code moretypes/functions_closures.go
-
-* Exercise: Fibonacci closure
-Implement a _fibonacci_ function that returns a function (a closure) that returns successive fibonacci numbers
-F0, the "0" is omitted (0, 1, 1, 2, 3, 5, ...)
-.code moretypes/exercise_functions_i.go
 
 * Variables
 - The *var* statement declares a list of variables; as in function argument lists, the type is last.
@@ -189,6 +226,55 @@ Constants *cannot* be declared using the := syntax.
 : Try printing needInt(Big) too.
 : (An int can store at maximum a 64-bit integer, and sometimes less.)
 : .play basic/numeric_constants.go /START/,/END/
+
+* Constants - iota
+
+iota expression is repeated by the other constants
+until another assignment or type declaration shows up.
+
+* Functions
+- A function can take zero or more arguments.
+
+- In this example, *add* takes two parameters of type *int*.
+
+- Notice that the _type_ comes _after_ the _variable_ _name_.
+
+.code basic/functions.go
+
+  func add(x, y int) int
+
+: (For more about why types look the way they do, see the article on Go's declaration syntax.)
+
+* Multiple results
+- a function can return any number of results
+- the *swap* function returns two string.
+
+.play basic/multiple_results.go /START/,/END/
+
+* Named return values
+- Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+
+.code basic/named_results.go /START/,/END/
+
+
+- A return statement without arguments returns the named return values. This is known as a *"naked"* return.
+
+- Naked return statements should be used only in short functions.
+: They can harm readability in longer functions.
+: These names should be used to document the meaning of the return values.
+
+* Function values
+*Functions* *are* *values* too. They can be *passed* *around* just like other values.
+Function values may be used as function arguments and return values.
+.code moretypes/functions_values.go
+
+* Function closures
+.code moretypes/functions_closures.go
+
+* Exercise: Fibonacci closure
+Implement a _fibonacci_ function that returns a function (a closure) that returns successive fibonacci numbers
+F0, the "0" is omitted (0, 1, 1, 2, 3, 5, ...)
+.code moretypes/exercise_functions_i.go
 
 * Flow Control
 
