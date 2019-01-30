@@ -8,15 +8,336 @@ anuchit.prasertsang@gmail.com
 https://github.com/AnuchitO
 @twitter_AnuchitO
 
+* WordCount
+
+- function name is WordCount
+
+* WordCount - example
+.play moretypes/maps_exercise_II_answer.go /START/,/END/
+
+* Move WordCount to new package
+
+    bin/
+        ...
+    pkg/
+        ...
+    src/
+        github.com/golang/example/
+            .git/
+        hello/
+            main.go                 # main เรียกใช้ ฟังก์ชั่น WordCount
+            ...
+        words/
+            words.go                # WordCount function is here
+
+        ... (many more repositories and packages omitted) ...
+
+- add print your name inside function *WordCount*.
+
+* Public Library
+.link https://slides.com/anuchito/basic-git-3#/ git basic
+- push to github
+- remove *src/words*
+- go run hello/main.go
+
+* Using Library
+
+  go get [packages]
+
+- example
+
+  go get github.com/AnuchitO/words
+
+1. ใช้ lib ตัวเอง
+2. ใช้ lib เพื่อน
+
+* Exercise - package I
+_Step_ _I_
+
+  - ให้แยก Person struct ไปอยู่ใน package person
+  - ให้สร้าง function New ที่รับค่า name, age และคืนค่า เป็น Person
+  - สร้างไฟล์ person.go เป็น ไฟล์ main เพื่อเรียกใช้ฟังก์ชั่น New และ Print ค่า Person ออกมาดู
+  - public package person ให้เพื่อนสามารถใช้และเรียกใช้ของเพื่อนข้างๆได้
+
+_Step_ _II_
+
+  - สร้าง folder workspace ที่ไม่ได้อยู่ภายใต้ GOPATH
+  - สร้าง folder people ภายใต้ folder workspace
+  - สร้างไฟล์ people/people.go มี function main เรียกใช้ New Person
+  - สั่ง run people/people.go
+
+_Step_ _III_
+
+  - ลบ package person ใน GOPATH
+  - สั่ง run people/people.go
+
+
+* Go Modules
+* Modules
+- A collection of related Go packages that are versioned together as a single unit
+
+Modules record precise dependency requirements and create reproducible builds.
+
+Most often, a version control repository contains exactly one module defined in the repository root. (Multiple modules are supported in a single repository, but typically that would result in more work on an on-going basis than a single module per repository).
+
+* Repositories, Modules, and Packages:
+- A repository contains one or more Go modules.
+- Each module contains one or more Go packages.
+- Each package consists of one or more Go source files in a single directory.
+- Modules *must* *be* semantically versioned v(major).(minor).(patch)
+- such as v0.1.0 or v1.2.3. The leading *v* *is* *required*.
+If using Git, tag released commits with their versions.
+Public and private module repositories and proxies are becoming available (see FAQ below).
+
+* Go inside GOPATH
+- export GO111MODULE=on
+- go mod init
+- go mode tidy
+
+* Update dependency
+- upgrade
+- downgrade
+
+go.mod
+
+  require (
+    github.com/AnuchitO/say v1.0.0
+  )
+
+* Replace dependency
+- go mod edit -replace github.com/AnuchitO/say=./say
+
+* Multiple version
+- say v1
+- say v2
+
+  require (
+    github.com/AnuchitO/say v1.0.0
+    github.com/AnuchitO/say/v2 v2.0.0
+  )
+
+
+* Clean cache
+  go clean -modcache
+
+* Module compatibility and semantic versioning
+.link https://research.swtch.com/vgo-module
+
+
+* Books
+.image books/the_go_programming_language.jpg 500 _
+
+
+* Object Oriented Programming (OOP)
+- Inheritance
+- Encapsulation
+- Abstraction
+- Polymorphism
+
+* Inheritance
+.image oop/Inheritance-1.png 368 _
+one such concept where the properties of one class can be inherited by the other
+
+* Encapsulation
+.image oop/Encapsulation-1.png 268 _
+
+A mechanism where you bind your data and code together as a single unit.
+It also means to hide your data in order to make it safe from any modification.
+
+* Abstraction
+.image oop/Abstraction-1.gif 368 _
+
+Abstraction refers to the quality of dealing with *ideas* rather than events.
+It basically deals with hiding the details and showing the essential things to the user.
+
+* Polymorphism
+.image oop/Polymorphism-1.png 368 _
+*poly* means _many_ and *morph* means _forms_.
+It is the ability of a variable, function or object to take on multiple forms.
+In other words, polymorphism allows you define one interface or method and have multiple implementations.
+
+* OOP in Go
+
+* Normal function
+.play methods/rectangle_I.go
+
 * Methods
-Go does not have classes. However, you can define methods on types.
-A method is a function with a special _receiver_ argument.
-The receiver appears in its own argument list between the *func* keyword and the method name.
-In this example, the *Abs* method has a receiver of type *Vertex* named *v*.
-.play methods/methods.go /START/,/END/
-You can only declare a method with a receiver whose type is defined in the same package as the method.
+.play methods/rectangle_II.go
 
 
-* Methods are functions
-Remember: a method is just a function with a receiver argument.
-.play methods/methods_funcs.go /START/,/END/
+* Exercise - Person
+- Add methods
+  - Walk -> print name + "walking"
+  - Eat  -> print name + "eating"
+  - Geeting -> print "hello" + name
+  - getter for field name
+  - setter for field name
+
+
+* Methods
+- Go does not have classes.
+- Go define methods on types.
+.code methods/point_I.go /START/,/END/
+- A method is just a function with a receiver argument.
+- the extra parameter *p* is celled the method's *receiver*.
+- declare a method as the same package only.
+
+
+* Calling the Method
+
+  p := Point{1, 2}
+  q := Point{4, 6}
+
+- How to call Distance *function*?
+- How to call Distance *method*?
+- What happen when declare method in another package?
+
+
+
+* Calling the Method - continue
+
+  fc := Distance(p, q) // function call
+  mc := p.Distance(q) // method call
+  fmt.Println(fc)
+  fmt.Println(mc)
+
+- The expression *p.Distance* is called a _selector_, because it selects the appropriate *Distance* method for the receiver *p* of type *Point*.
+- Selector are also used to select fields of struct as in *p.X*
+
+* How to define methods on another types.
+
+  type Path []Point
+
+- Declare method *Distance()*, return type is float64
+- just hard code return is *0.0*
+- How to Initialize *Path* and call method *Distance*?
+.image methods/path.png 300 _
+
+* Distance implement
+.play methods/point_slice_I.go /START/,/END/
+
+* Exercise - Point
+- move point to package *geometry*
+- package *geometry* อยู่ใน module "github.com/<account>/geometry"
+- public package *geometry* to github
+- ไฟล์ main ที่เรียกใช้  geometry ต้องยังใช้งานได้อยู่
+
+* Methods with a Pointer Receiver
+
+- Add method *ScaleBy* for _Point_
+
+  func (p *Point) ScaleBy(factor float64) {
+      p.X *= factor
+      p.Y *= factor
+  }
+
+- In a realistic program, convention dictates that if any method of *Point* has a poiter receiver, then *all* methods of *Point* should have a pointer receiver
+- How to call methods *ScaleBy*?
+
+* Calling the method - ScaleBy
+.play methods/point_slice_I_answer.go /START/,/END/
+
+- How about we change *ScaleBy* to be value type not a pointer type?
+
+* Composing Types by Struct Embedding
+- *ColorerPoint* that contains all the fields of *Point*.
+.play methods/coloredpoint.go /START1/,/END1/
+
+- How about this?
+.play methods/coloredpoint.go /START2/,/END2/
+
+- How about methods?
+
+* Applies methods of Point
+- We can call method of the embedded *Point* field using a receiver of type *ColorerPoint*, even though ColorerPoint has no declared methods
+.play methods/coloredpoint.go /START3/,/END3/
+
+* Method Values
+.play methods/coloredpoint_value_expression.go /START_VALUE/,/END_VALUE/
+
+* Method Expressions
+.play methods/coloredpoint_value_expression.go /START_EXP/,/END_EXP/
+
+* Encapsulation
+Go has only one mechanism to control the visibility of names: *capitalized* identifiers are exported from the package in which they are defined , and *uncapitalized* names are not.
+
+    type IntSet struct {
+        words []uint64
+    }
+
+- What happen if we change *Y* to *y* of *Point*?
+
+* Interfaces
+
+* empty interface
+.play interfaces/interface_empty.go
+
+* interface: type assertion
+
+
+.play interfaces/interface_assert.go
+
+* interface: type switch
+
+.play interfaces/interface_switch.go
+
+* interface
+
+
+To define a set of method signatures
+
+    Interfaces specify behaviors.
+    An interface type defines a set
+    of methods:
+
+
+    type areaer interface {
+        area() int
+    }
+
+
+`Interfaces` `are` `implemented` `implicitly`
+
+* Excercise - Interface
+
+    type triangle struct {
+        base  float64
+        height float64
+    }
+
+    func (rec triangle) area() float64 {
+        return 0.5 * rec.base * rec.height
+    }
+
+- How do we define interface for rectangle and triangle?
+
+
+* interface: Stringer
+
+
+    type Stringer interface {
+        String() string
+    }
+
+* interface: error
+
+
+    type error interface {
+        Error() string
+    }
+
+: * Interfaces as Contracts
+: * Interface Types
+: * Interface Satisfaction
+: * Interface Values
+: * Sorting with sort.Interface
+: * The _http.Handler_ Interface
+: * The _error_ Interface
+: * Type Assertions
+: * Type Switches
+
+* Idiom Error Handling in Go
+
+
+* References
+.link https://www.edureka.co/blog/object-oriented-programming/  Object-Oriented Programming
