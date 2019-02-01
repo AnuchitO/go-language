@@ -1,0 +1,179 @@
+The Go Programming Language
+TDD
+Tags: go, golang
+
+Anuchit Prasertsang
+Developer
+anuchit.prasertsang@gmail.com
+https://github.com/AnuchitO
+@twitter_AnuchitO
+
+* Testing
+- *_test.go files
+- go test
+
+* Test Functions
+Each test file must import the testing package. Test functions have the following signature:
+
+  import "testing"
+  func TestName(t *testing.T) {
+    // ...
+  }
+
+Test function names must begin with *Test*; the optional suffix *Name* must begin with a *capital*
+letter:
+
+  func TestSin(t *testing.T) { /* ... */ }
+  func TestCos(t *testing.T) { /* ... */ }
+  func TestLog(t *testing.T) { /* ... */ }
+
+The *t* parameter provides methods for reporting test failures and logging additional
+information.
+
+* Exercise
+
+  package main
+
+  func Sum(x int, y int) int {
+      return x + y
+  }
+
+  func main() {
+      Sum(5, 5)
+  }
+
+* Test sum function
+
+  package main
+  import "testing"
+
+  func TestSum(t *testing.T) {
+      total := Sum(5, 5)
+      if total != 10 {
+        t.Errorf("Sum was incorrect, got: %d, want: %d.", total, 10)
+      }
+  }
+
+
+: go test -cover
+: Generating an HTML coverage report
+: go test -cover -coverprofile=c.out
+: go tool cover -html=c.out -o coverage.html
+
+* FizzBuzz
+
+  input  => output
+    1    => "1"
+    2    => "2"
+    3    => "Fizz"
+    4    => "4"
+    5    => "Buzz"
+    6    => "Fizz"
+    7    => "7"
+    8    => "8"
+    9    => "Fizz"
+    10   => "Buzz"
+    11   => "11"
+    12   => "Fizz"
+    13   => "13"
+    14   => "14"
+    15   => "FizzBuzz"
+
+
+* What is TDD?
+- *Test-Driven* *Development* *(TDD)* is a technique for building software that guides software development by writing test. (Martin Fowler's definition)
+- Developers write unit tests (NOT testers) and _then_ code.
+
+* TDD mantra
+.image tdd/tdd_mantra.gif 500 _
+
+* TDD mantra
+- RED - write a little test that doesn't work, perhaps doesn't even compile at first.
+- Green - make the test work quickly, committin whatever sins necessary in the process.
+- Refactor - eliminate all the duplication and smells created in just getting the test to work.
+
+* Uncle Bob describes TDD with three rules:
+- You are not allowed to write any production code unless it is to make a failing unit test pass.
+- You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.
+- You are not allowed to write any more production code than is sufficient to pass the one failing unit test.
+
+: 1. ห้ามเขียน production code ซักบรรทัดจนกว่าจะได้เขียน unit test ที่ fail ขึ้นมาสักอัน
+: 2. ห้ามเขียน unit test เกินกว่าที่มันจำเป็นเพื่อนจะ fail
+: 3. ห้ามเขียน production code เกินกว่าที่มันจำเป็นเพื่อนทำให้  test ผ่าน
+
+* TDD FizzBuzz
+
+  input  => output
+    1    => "1"
+    2    => "2"
+    3    => "Fizz"
+    4    => "4"
+    5    => "Buzz"
+    6    => "Fizz"
+    7    => "7"
+    8    => "8"
+    9    => "Fizz"
+    10   => "Buzz"
+    11   => "11"
+    12   => "Fizz"
+    13   => "13"
+    14   => "14"
+    15   => "FizzBuzz"
+
+
+* Captcha
+* Phone Number Normalizer
+
+  1234567890
+  123 456 7891
+  (123) 456 7892
+  (123) 456-7893
+  123-456-7894
+  123-456-7890
+  1234567892
+  (123)456-7892
+
+* ROMAN coverter
+.image tdd/roman_number.jpg 600 _
+
+
+* Rotation Array
+    [1, 2, 3, 4, 5] => [5, 1, 2, 3, 4] => [4, 5, 1, 2, 3]
+    ["c", "d", "e", "a", "b"] => ["b", "c", "d", "e", "a"]
+
+
+* Money change
+- หาเงินทอน
+
+- ราคาที่ต้องจ่าย
+- เงินที่ลูกค้าให้มา
+- ส่งกลับค่าเงินทอน
+  - slice ของธนบัตรหรือเหรียญคู่กับจำนวน
+  [(1000,2), (50,1), (2, 1), (1,1)]
+
+- มีธนบัตร กับ เหรียญ 1000,500,100,50,20,10,5,2,1
+
+: https://play.golang.org/p/4Xi5jS0l4Os?fbclid=IwAR090gJqDgh9zfl3-Ob_uVSwp0hjSDo57RLH4EGD2P43uyKutjV7b5m-94I
+
+
+* Benchmark Functions
+- In Go, a benchmark function looks like a test function, but with the *Benchmark*
+prefix and a ****testing.B* parameter that provides most of the same methods as a *testing.T,
+
+plus a few ext ra re lated to per for mance measurement. It als o exp oses an integer field N, which
+specifies the number of times to perform the operation being measured.
+Here’sabenchmark for IsPalindrome that calls it N times in a loop.
+
+  import "testing"
+  func BenchmarkIsPalindrome(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+      IsPalindrome("A man, a plan, a canal: Panama")
+    }
+  }
+
+* Benchmark Palindrome
+  func BenchmarkIsPalindrome(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+      IsPalindrome("A man, a plan, a canal: Panama")
+    }
+  }
