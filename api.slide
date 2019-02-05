@@ -1,0 +1,133 @@
+The Go Programming Language
+API
+Tags: go, golang
+
+Anuchit Prasertsang
+Developer
+anuchit.prasertsang@gmail.com
+https://github.com/AnuchitO
+@twitter_AnuchitO
+
+* Pre-required
+- postman
+- docker
+
+* Book
+.image api/go_blueprint.png 500 _
+
+* protocol http
+*HTTP* stands for "Hyper Text Transfer Protocol"
+.image api/http_i.png
+
+: * http
+: .image api/http_ii.gif 500 _
+
+: * http header
+: .image api/http_header.png
+
+* REST API
+*REST*  stands for "Representational State Transfer"
+*API* stands for “Application Programming Interface”
+
+Design concepts:
+
+- HTTP methods describe the kind of action to take; for example, _GET_ methods will only ever read data, while _POST_ requests will create something.
+- Data is expressed as a collection of resources.
+- Actions are expressed as changes to data.
+- URLs are used to refer to specific data.
+- HTTP header are used to describe the kind of representation comming into and going out of the server.
+
+: REST based Services/Architecture VC RESTFUL Services/Architecture
+: To differentiate or compare these 2, you should know what is REST.
+: REST (REpresentational State Transfer) is basically an architectural style of development having some principles...
+: It should be stateless
+: It should access all the resources from the server using only URI
+: It does not have inbuilt encryption
+: It does not have session
+: It uses one and only one protocol that is HTTP
+: For performing CRUD operations, it should use HTTP verbs such as get, post, put and delete
+: It should return the result only in the form of JSON or XML, atom, OData etc. (lightweight data )
+: REST based services follow some of the above principles and not all
+: RESTFUL services means it follows all the above principles.
+: It is similar to the concept of:
+: Object-based languages supports all the OOPs concepts, examples: C++, C#
+: Object oriented languages supports some of the OOPs features, examples: JavaScript, VB
+
+* HTTP methods and URLs
+- GET /todos
+  Read all todos => Show a list of todos to the uses
+- GET /todos/{id}
+  Read the todo => Show details or results of a specific todo
+- POST /todos
+  Create a todo => Create a new todo
+- DELETE /todos/{id}
+  Delete a todo => Delete a specific todo
+
+*{id}* placeholder represent where in the path the unique ID for a poll. e.g */poll/1*
+
+* purely HTTP in Go.
+- package net/http
+
+.code api/simple_api_i.go
+
+* How about this?
+
+  http.ListenAndServe(":1234567890", nil)
+
+* Handle Error when start API
+.code api/simple_api_ii.go
+
+
+
+: ListenAndServe starts an HTTP server with a given address and handler.
+: The handler is usually nil, which means to use DefaultServeMux.
+: Handle and HandleFunc add handlers to DefaultServeMux:
+: http.Handle("/foo", fooHandler)
+: http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
+: 	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+: })
+: log.Fatal(http.ListenAndServe(":8080", nil))
+
+* GET /todos
+- create func *todoHandler*
+- create api path */todos*
+- response "hello GET todos"
+- go to browser ```http://localhost:1234/todos```
+
+* example - GET /todos
+.code api/simple_api_get_todos_i.go
+
+* POST /todos
+- What happen if we request with POST methods?
+- Open *postman*
+- POST /todos
+
+Handle Method POST
+- response "hello POST created todos"
+
+* example - POST /todos
+.code api/simple_api_post_todos_i.go
+
+* POST /todos with body
+.code api/simple_api_post_todos_ii.go /START/,/END/
+
+
+* Testing HTTP
+* Workshop
+* Gin HTTP web framework
+* Testing Gin
+* Workshop
+* Using GET,POST,PUT,PATCH,DELETE and OPTIONS
+* Parameters in path
+* Multipart/Urlencoded Form
+* Grouping routes
+* Workshop
+
+
+* What is NoSQL
+* Basic MongoDB
+* MongoDB with Go
+* Workshop
+* Testing MongoDB
+* Relational database
+* workshop
