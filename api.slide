@@ -89,7 +89,7 @@ Design concepts:
 : log.Fatal(http.ListenAndServe(":8080", nil))
 
 * GET /todos
-- create func *todoHandler*
+- create func *todosHandler*
 - create api path */todos*
 - response "hello GET todos"
 - go to browser ```http://localhost:1234/todos```
@@ -108,18 +108,143 @@ Handle Method POST
 * example - POST /todos
 .code api/simple_api_post_todos_i.go
 
-* POST /todos with body
+* POST /todos with body string
 .code api/simple_api_post_todos_ii.go /START/,/END/
 
+* JSON (JavaScript Object Notation)
+- JSON Object
+
+  {
+    "name": "John",
+    "age": 30,
+    "weight": null
+  }
+
+- JSON Array
+
+  [
+    {
+      "name": "John",
+      "age": 30,
+      "weight": null
+    },
+    {
+      "name": "Nong",
+      "age": 15,
+      "weight": 59
+    }
+  ]
+
+* JSON in Go
+- Todo json
+
+  {
+    "id": "1",
+    "title": "pay phone bills",
+    "status": "active"
+  }
+
+- use struct with tags
+
+  type Todo struct {
+    ID     string `json:"id"`
+    Title  string `json:"title"`
+    Status string `json:"status"`
+  }
+
+* JSON to struct
+.code api/json_unmarshal.go /START/,/END/
+
+* struct to JSON
+.code api/json_marshal.go /START/,/END/
+
+* POST /todos with body json
+.code api/simple_api_post_todos_iii.go /START/,/END/
+
+  {
+    "id": "1",
+    "title": "pay phone bills",
+    "status": "active"
+  }
+
+* exercise - store todo
+- declare new variable `var todos []Todo`
+- when receive POST /todos use json.Unmarshal body and append new todo into *todos*
+- print it out
+
+* POST /todos store new todo
+.code api/simple_api_post_todos_ix.go /START/,/END/
+
+* exercise - get all todos
+- when receive GET
+
+* GET /todos - all todos list
+.code api/simple_api_get_all_todos.go /START/,/END/
+
+* exercise - PUT /todos/{1}
+: * PUT /todos/{1} - update todo
+- update status of element 1
+
+* exercise - DELETE /todos/{1}
+: * DELETE /todos/{1} - todos list
+- delete element 1
 
 * Testing HTTP
-* Workshop
+.code api/simple_api_test/simple_api_test.go /START/,/END/
+
 * Gin HTTP web framework
+
+* Gin example
+.code api/gin_example.go
+
+	PORT=1234 go run serve.go
+
+
+* Using GET,POST,PUT,DELETE
+
+* exercise - Gin - GET /todos
+- create func *getTodosHandler*
+- create api path GET */todos*
+- response "hello Gin GET todos"
+- go to browser ```http://localhost:1234/todos```
+
+next step
+change response to be
+
+  [
+    {
+      "id": "1",
+      "title": "pay phone bills",
+      "status": "active"
+    }
+  ]
+
+* Gin GET /todos
+.code api/gin_get_todos.go /START/,/END/
+
+* Gin POST /todos store new todo
+- create func *createTodosHandler*
+- create api path POST */todos*
+- store new todo into the todo list.
+- postman post ```http://localhost:1234/todos``` with body
+
+  {
+    "title": "pay phone bills",
+    "status": "active"
+  }
+
+* Gin POST /todos
+.code api/gin_post_todos.go /START/,/END/
+
+* Gin GET /todos - all todos list
+
+* Gin PUT /todos - all todos list
+
+* Gin DELETE /todos - all todos list
+
 * Testing Gin
 * Workshop
-* Using GET,POST,PUT,PATCH,DELETE and OPTIONS
 * Parameters in path
-* Multipart/Urlencoded Form
 * Grouping routes
 * Workshop
 
