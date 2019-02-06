@@ -267,11 +267,3 @@ change response to be
 .code api/gin_middleware_auth.go /START/,/END/
 
 * exercise
-
-* What is NoSQL
-* Basic MongoDB
-* MongoDB with Go
-* Workshop
-* Testing MongoDB
-* Relational database
-* workshop
