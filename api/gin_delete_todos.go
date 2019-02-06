@@ -63,11 +63,11 @@ func updateTodosHandler(c *gin.Context) {
 }
 
 // START OMIT
-func deleteTodosHandler(c *gin.Context) {
+func deleteTodosHandler(c *gin.Context) { // HL
 	id := c.Param("id")
 	delete(todos, id)
-	c.JSON(http.StatusOK, "deleted todo.")
-}
+	c.JSON(http.StatusOK, "deleted todo.") // HL
+} // HL
 
 func main() {
 	r := gin.Default()
@@ -75,7 +75,7 @@ func main() {
 	r.GET("/todos/:id", getTodoByIdHandler)
 	r.POST("/todos", createTodosHandler)
 	r.PUT("todos/:id", updateTodosHandler)
-	r.DELETE("todos/:id", deleteTodosHandler) //HL
+	r.DELETE("todos/:id", deleteTodosHandler) // HL
 
 	r.Run(":1234")
 }

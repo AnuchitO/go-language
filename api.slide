@@ -239,17 +239,34 @@ change response to be
 * Gin GET /todos/1 - get by id
 .code api/gin_get_todos_path_param.go /START/,/END/
 
-* Gin PUT /todos - all todos list
+* Gin GET /todos?status=value - filter by status
+.code api/gin_get_todos_filter.go /TODOS/,/ENDTODOS/
+
+* Gin GET /todos?status=active - filter by status
+.code api/gin_get_todos_filter.go /START/,/END/
+
+* Gin PUT /todos - update todo
 .code api/gin_put_todos.go /START/,/END/
 
-* Gin DELETE /todos - all todos list
+* Gin DELETE /todos - delete todo
 .code api/gin_delete_todos.go /START/,/END/
 
 * Testing Gin
-* Workshop
-* Grouping routes
-* Workshop
+.code api/test/gin.go
 
+* Test filter
+.code api/test/gin_test.go
+
+* Grouping routes
+.code api/gin_grouping.go /START/,/END/
+
+* Gin Middleware
+.code api/gin_middleware.go /START/,/END/
+
+* Gin Middleware - Authorization
+.code api/gin_middleware_auth.go /START/,/END/
+
+* exercise
 
 * What is NoSQL
 * Basic MongoDB
