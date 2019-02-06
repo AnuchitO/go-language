@@ -25,7 +25,6 @@ func getTodosHandler(c *gin.Context) { // HL
 	c.JSON(http.StatusOK, items) // HL
 } // HL
 
-// START OMIT
 func createTodosHandler(c *gin.Context) { // HL
 	t := Todo{}
 	if err := c.ShouldBindJSON(&t); err != nil { // HL
@@ -37,19 +36,27 @@ func createTodosHandler(c *gin.Context) { // HL
 	i++
 	id := strconv.Itoa(i)
 	t.ID = id
-	todos[id] = &t
+	todos[id] = &t // HL
 
 	c.JSON(http.StatusCreated, "created todo.") // HL
 } // HL
 
+// START OMIT
 func getTodoByIdHandler(c *gin.Context) {
-	id := c.Param("id")
-	c.JSON(http.StatusOK, todos[id])
+	id := c.Param("id") // HL
+
+	t, ok := todos[id] // HL
+	if !ok {
+		c.JSON(http.StatusNotFound, gin.H{})
+		return
+	}
+	c.JSON(http.StatusOK, t) // HL
 }
+
 func main() {
 	r := gin.Default()
 	r.GET("/todos", getTodosHandler)
-	r.GET("/todos/:id", getTodoByIdHandler)
+	r.GET("/todos/:id", getTodoByIdHandler) // HL
 	r.POST("/todos", createTodosHandler)
 
 	r.Run(":1234") // HL

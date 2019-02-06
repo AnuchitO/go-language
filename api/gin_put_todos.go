@@ -25,7 +25,6 @@ func getTodosHandler(c *gin.Context) { // HL
 	c.JSON(http.StatusOK, items) // HL
 } // HL
 
-// START OMIT
 func createTodosHandler(c *gin.Context) { // HL
 	t := Todo{}
 	if err := c.ShouldBindJSON(&t); err != nil { // HL
@@ -36,18 +35,43 @@ func createTodosHandler(c *gin.Context) { // HL
 	i := len(todos)
 	i++
 	id := strconv.Itoa(i)
-	t.ID = id      // HL
+	t.ID = id
 	todos[id] = &t // HL
 
 	c.JSON(http.StatusCreated, "created todo.") // HL
 } // HL
 
+func getTodoByIdHandler(c *gin.Context) {
+	id := c.Param("id") // HL
+
+	t, ok := todos[id] // HL
+	if !ok {
+		c.JSON(http.StatusNotFound, gin.H{})
+		return
+	}
+	c.JSON(http.StatusOK, t) // HL
+}
+
+// START OMIT
+func updateTodosHandler(c *gin.Context) {
+	id := c.Param("id")
+	t := todos[id]                              // HL
+	if err := c.ShouldBindJSON(t); err != nil { // HL
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	} // HL
+
+	c.JSON(http.StatusOK, t)
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/todos", getTodosHandler)
-	r.POST("/todos", createTodosHandler) // HL
+	r.GET("/todos/:id", getTodoByIdHandler)
+	r.POST("/todos", createTodosHandler)
+	r.PUT("todos/:id", updateTodosHandler) //HL
 
-	r.Run(":1234") // HL
+	r.Run(":1234")
 }
 
 // END OMIT

@@ -236,7 +236,8 @@ change response to be
 * Gin POST /todos
 .code api/gin_post_todos.go /START/,/END/
 
-* Gin GET /todos - all todos list
+* Gin GET /todos/1 - get by id
+.code api/gin_get_todos_path_param.go /START/,/END/
 
 * Gin PUT /todos - all todos list
 
