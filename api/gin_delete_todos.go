@@ -51,8 +51,6 @@ func getTodoByIdHandler(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, t) // HL
 }
-
-// START OMIT
 func updateTodosHandler(c *gin.Context) {
 	id := c.Param("id")
 	t := todos[id]                              // HL
@@ -61,7 +59,14 @@ func updateTodosHandler(c *gin.Context) {
 		return
 	} // HL
 
-	c.JSON(http.StatusOK, t) // HL
+	c.JSON(http.StatusOK, t)
+}
+
+// START OMIT
+func deleteTodosHandler(c *gin.Context) {
+	id := c.Param("id")
+	delete(todos, id)
+	c.JSON(http.StatusOK, "deleted todo.")
 }
 
 func main() {
@@ -69,7 +74,8 @@ func main() {
 	r.GET("/todos", getTodosHandler)
 	r.GET("/todos/:id", getTodoByIdHandler)
 	r.POST("/todos", createTodosHandler)
-	r.PUT("todos/:id", updateTodosHandler) // HL
+	r.PUT("todos/:id", updateTodosHandler)
+	r.DELETE("todos/:id", deleteTodosHandler) //HL
 
 	r.Run(":1234")
 }

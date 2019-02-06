@@ -47,7 +47,7 @@ func getTodoByIdHandler(c *gin.Context) {
 
 	t, ok := todos[id] // HL
 	if !ok {
-		c.JSON(http.StatusNotFound, gin.H{})
+		c.JSON(http.StatusOK, gin.H{})
 		return
 	}
 	c.JSON(http.StatusOK, t) // HL

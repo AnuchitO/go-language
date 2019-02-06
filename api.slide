@@ -240,12 +240,13 @@ change response to be
 .code api/gin_get_todos_path_param.go /START/,/END/
 
 * Gin PUT /todos - all todos list
+.code api/gin_put_todos.go /START/,/END/
 
 * Gin DELETE /todos - all todos list
+.code api/gin_delete_todos.go /START/,/END/
 
 * Testing Gin
 * Workshop
-* Parameters in path
 * Grouping routes
 * Workshop
 
