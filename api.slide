@@ -248,7 +248,7 @@ change response to be
 * Gin PUT /todos - update todo
 .code api/gin_put_todos.go /START/,/END/
 
-* Gin DELETE /todos - delete todo
+* Gin DELETE /todos/:id - delete todo
 .code api/gin_delete_todos.go /START/,/END/
 
 * Testing Gin
@@ -267,3 +267,9 @@ change response to be
 .code api/gin_middleware_auth.go /START/,/END/
 
 * exercise
+
+* How to build
+
+  go build -o api
+
+* Homework - install docker
