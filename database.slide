@@ -1,0 +1,34 @@
+The Go Programming Language
+Database
+Tags: go, golang
+
+Anuchit Prasertsang
+Developer
+anuchit.prasertsang@gmail.com
+https://github.com/AnuchitO
+@twitter_AnuchitO
+
+* Database service
+.link https://www.elephantsql.com/
+
+* Connect database
+.code database/postgres/connect.go
+
+* CREATE TABLE
+.code database/postgres/create.go /START/,/END/
+
+* INSERT
+.code database/postgres/insert.go /START/,/END/
+
+* QUERY one row
+.code database/postgres/query_one_row.go  /START/,/END/
+
+* UPDATE
+.code database/postgres/update.go  /START/,/END/
+
+* QUERY all
+.code database/postgres/query_all.go  /START/,/END/
+
+* Todo gin api + database
+
+* workshop
