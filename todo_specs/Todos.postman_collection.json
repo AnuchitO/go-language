@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "0800c55e-ef7c-4f4e-96f9-4e6a01db6901",
+		"name": "Todos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Todo item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a7eeb23-17dd-4db0-9825-8c42060f1d78",
+						"exec": [
+							"var todo = JSON.parse(responseBody);",
+							"console.log(todo);",
+							"postman.setEnvironmentVariable(\"LATEST_TODO_ID\", todo.id);",
+							"",
+							"",
+							"pm.test(\"should response success(201) and object of todo\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.id).to.not.eql(0);",
+							"    pm.expect(response.title).to.eql(\"walk dog\");",
+							"    pm.expect(response.status).to.eql(\"active\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 201 or 202\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\":\"walk dog\",\n  \"status\": \"active\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:1234/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Todo item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23a9ea45-155a-4310-85fe-d236956b3b26",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"should response object of latest todo\", function () {",
+							"    var id = pm.environment.get(\"LATEST_TODO_ID\");",
+							"    ",
+							"    var todo = pm.response.json();",
+							"    pm.expect(todo.id.toString()).to.eql(id);",
+							"    pm.expect(todo.title).to.not.eql(\"\");",
+							"    pm.expect(todo.status).to.not.eql(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:1234/api/todos/{{LATEST_TODO_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"api",
+						"todos",
+						"{{LATEST_TODO_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET List Todo items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "97630864-1ddf-4c64-8fee-4ec326091559",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"should response success(200) and object of latest todo\", function () {",
+							"    var allTodo = pm.response.json();",
+							"    var len = allTodo.length;",
+							"    ",
+							"    pm.expect(len).to.be.above(0);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:1234/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT update Todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc9c4aed-50ae-4266-a6c8-2195172f0104",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"should response success(201) and object of todo\", function () {",
+							"    var id = pm.environment.get(\"LATEST_TODO_ID\");",
+							"    ",
+							"    var todo = pm.response.json();",
+							"    pm.expect(todo.id.toString()).to.eql(id);",
+							"    pm.expect(todo.title).to.eql(\"walk dog\");",
+							"    pm.expect(todo.status).to.eql(\"inactive\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\":\"walk dog\",\n  \"status\": \"inactive\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:1234/api/todos/{{LATEST_TODO_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"api",
+						"todos",
+						"{{LATEST_TODO_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f3884fa-e1d6-4cb1-9a17-451b176416c8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"should response success(200) and object of todo\", function () {",
+							"    var response = pm.response.json();",
+							"    pm.expect(response.status).to.eql(\"success\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:1234/api/todos/{{LATEST_TODO_ID}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1234",
+					"path": [
+						"api",
+						"todos",
+						"{{LATEST_TODO_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
